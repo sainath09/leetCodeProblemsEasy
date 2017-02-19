@@ -1,0 +1,55 @@
+tion for a binary tree node.
+
+ * struct TreeNode {
+
+ *     int val;
+
+ *     TreeNode *left;
+
+ *     TreeNode *right;
+
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+
+ * };
+
+ */
+
+class Solution {
+
+public:
+
+    int maxDepth(TreeNode* root) {
+
+        int lheight=0;
+
+
+
+        int rheight=0;
+
+
+
+        if(root==NULL)
+
+
+
+            return 0;
+
+
+
+        else 
+
+
+
+             lheight=maxDepth(root->left)+1;
+
+
+
+             rheight=maxDepth(root->right)+1;
+
+
+
+        return max(lheight,rheight);
+
+    }
+
+};
