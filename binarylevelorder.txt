@@ -1,0 +1,129 @@
+tion for a binary tree node.
+
+ * struct TreeNode {
+
+ *     int val;
+
+ *     TreeNode *left;
+
+ *     TreeNode *right;
+
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+
+ * };
+
+ */
+
+class Solution {
+
+public:
+
+    vector<vector<int>> levelOrder(TreeNode* root) {
+
+        vector<vector<int>> outer;
+
+        if(root==NULL) return outer;
+
+        //if(root->left==NULL && root right == NULL)
+
+        
+
+        vector<int> inner;
+
+        
+
+        queue<TreeNode*> tempQueue1;
+
+        queue<TreeNode*> tempQueue2;
+
+        inner.push_back(root->val);
+
+        tempQueue1.push(root);
+
+        //tempQueue2.push(root);
+
+        outer.push_back(inner);
+
+        inner.clear();
+
+        while(true){
+
+            while(!tempQueue1.empty()){
+
+                TreeNode* temp=tempQueue1.front();    
+
+                tempQueue1.pop();
+
+                if(temp->left){
+
+                    tempQueue2.push(temp->left);
+
+                    inner.push_back(temp->left->val);
+
+                }
+
+                if(temp->right){
+
+                     tempQueue2.push(temp->right);
+
+                     inner.push_back(temp->right->val);
+
+                }
+
+                
+
+            }
+
+            if(inner.size()!=0)
+
+                    outer.push_back(inner);
+
+                inner.clear();
+
+            while(!tempQueue2.empty()){
+
+                TreeNode* q2Temp=tempQueue2.front();
+
+                tempQueue2.pop();
+
+                if(q2Temp->left){
+
+                    inner.push_back(q2Temp->left->val);
+
+                    tempQueue1.push(q2Temp->left);                        
+
+                }
+
+                if(q2Temp->right){
+
+                    inner.push_back(q2Temp->right->val);
+
+                    tempQueue1.push(q2Temp->right);
+
+                }
+
+                
+
+                
+
+            }
+
+            if(inner.size()!=0)
+
+                    outer.push_back(inner);
+
+            inner.clear();
+
+            
+
+         if(tempQueue2.empty()&&tempQueue1.empty()) return outer;   
+
+        }
+
+        
+
+     return outer;   
+
+    }
+
+};
