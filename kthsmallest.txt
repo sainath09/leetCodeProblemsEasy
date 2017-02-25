@@ -1,0 +1,67 @@
+tion for a binary tree node.
+
+ * struct TreeNode {
+
+ *     int val;
+
+ *     TreeNode *left;
+
+ *     TreeNode *right;
+
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+
+ * };
+
+ */
+
+class Solution {
+
+public:
+
+    int sizeOf(TreeNode* root){
+
+        if(root==NULL) return 0;
+
+        else return 1+sizeOf(root->left)+sizeOf(root->right);
+
+        return 0;
+
+    }
+
+    int kthSmallest(TreeNode* root, int k) {
+
+        int leftSize=sizeOf(root->left);
+
+        
+
+        //cout<<root->val<<" "<<leftSize<<" "<<k<<endl;
+
+        if(leftSize+1 == k){
+
+          //cout<<"in root check condition"<<root->val;
+
+          return root->val;  
+
+        } 
+
+        else if(k>leftSize){
+
+            if(root->right)
+
+                    return kthSmallest(root->right,k-(1+leftSize));
+
+        }
+
+        else
+
+            if(root->left)
+
+                    return kthSmallest(root->left,k);
+
+        //cout<<"test:"<<root->val;
+
+        return root->val;
+
+    }
+
+};

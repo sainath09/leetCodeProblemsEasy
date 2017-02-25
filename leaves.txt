@@ -1,0 +1,19 @@
+nt leftLeaves=0;
+
+        int rightLeaves=0;
+
+        if(root==NULL) return 0;
+
+        if (root->left==NULL && root->right==NULL) return 1;
+
+        else {
+
+            leftLeaves=countLeafNodes(root->left);
+
+            rightLeaves=countLeafNodes(root->right);
+
+        }
+
+        return leftLeaves+rightLeaves;
+
+    }*/

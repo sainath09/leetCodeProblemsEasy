@@ -1,0 +1,73 @@
+tion for a binary tree node.
+
+ * struct TreeNode {
+
+ *     int val;
+
+ *     TreeNode *left;
+
+ *     TreeNode *right;
+
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+
+ * };
+
+ */
+
+class Solution {
+
+public:
+
+    TreeNode* buildTr(vector<int>& preorder, vector<int>& inorder,int preF,int preL,int inF,int inL){
+
+        //cout<<preF<<" "<<preL<<" "<<inF<<" "<<inL<<" " <<"prefVal:"<<preorder[preF]<<endl;
+
+        if(preF >= preorder.size()) return NULL;
+
+        if(preL==preF ) return new TreeNode(preorder[preF]);
+
+        TreeNode* root=new TreeNode(preorder[preF]);
+
+        int index=0;
+
+        for(int i=inF;i<=inL;i++){
+
+            if(preorder[preF]==inorder[i]){
+
+                index=i-inF;
+
+                break;
+
+            }
+
+        }
+
+       // cout<<"index:"<<index<<endl;
+
+        if(index==0) root->left=NULL;
+
+        else root->left=buildTr(preorder,inorder,preF+1,preF+index,inF,inF+index-1); 
+
+        if(index==inL-inF) root->right=NULL;
+
+        else 
+
+            root->right=buildTr(preorder,inorder,preF+index+1,preL,inF+index+1,inL);
+
+        return root;
+
+        
+
+    }
+
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+
+        if(preorder.size()==0) return NULL;
+
+        return buildTr(preorder, inorder,0,preorder.size()-1,0,inorder.size()-1);
+
+        
+
+    }
+
+};
