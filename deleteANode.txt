@@ -1,0 +1,109 @@
+tion for a binary tree node.
+
+ * struct TreeNode {
+
+ *     int val;
+
+ *     TreeNode *left;
+
+ *     TreeNode *right;
+
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+
+ * };
+
+ */
+
+class Solution {
+
+public:
+
+    TreeNode* searchElement(TreeNode* child,TreeNode* parent,int key){
+
+        if(child==NULL) return NULL;       
+
+        if(child->val==key && parent!=NULL){
+
+            cout<< child->val;
+
+            TreeNode* temp=NULL;
+
+            if(child->right){
+
+                temp=child->right;
+
+                while(temp->left!=NULL) temp=temp->left;    
+
+            }
+
+            else temp=child;
+
+            temp->left=child->left;
+
+            if(parent->left && parent->left->val==child->val){
+
+                if(child->right) parent->left=child->right;
+
+                else parent->left=child->left;
+
+            } 
+
+            if(parent->right && parent->right->val==child->val) {
+
+                if(child->right) parent->right=child->right;
+
+                else parent->right=child->left;
+
+            }
+
+        }
+
+        else if(child->val==key && parent==NULL){
+
+            if(child->left!=NULL && child->right !=NULL){
+
+                TreeNode* temp=NULL;
+
+                if(child->left){
+
+                    temp=child->left;
+
+                    while(temp->right) temp=temp->right;    
+
+                }
+
+                else temp=child;
+
+                temp->right=child->right;
+
+                return child->left;
+
+            }
+
+            else if (child->left==NULL && child->right!=NULL) return child->right;
+
+            else if(child->left!=NULL && child->right == NULL) return child->left;
+
+            else return NULL;
+
+        }
+
+        else if(child->val>key)  searchElement(child->left,child,key);
+
+        else   searchElement(child->right,child,key);
+
+        return child;
+
+    }
+
+    TreeNode* deleteNode(TreeNode* root, int key) {
+
+        if(root==NULL) return NULL;
+
+        return searchElement(root,NULL, key);
+
+        
+
+    }
+
+};
